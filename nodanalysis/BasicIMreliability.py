@@ -11,14 +11,15 @@ from sklearn.preprocessing import StandardScaler
 from scipy.stats import pearsonr
 from nod_utils import save_ciftifile
 
+# change to path of current file
+os.chdir(os.path.dirname(__file__))
 # define path
-beta_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/beta'
-# melodic_path= '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/melodic/'
-# fmriprep_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/fmriprep'
-# ciftify_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/ciftify'
-# nifti_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/nifti'
+dataset_root = '/nfs/z1/zhenlab/BrainImageNet'
+fmriprep_path = f'{dataset_root}/NaturalObject/data/bold/derivatives/fmriprep'
+ciftify_path = f'{dataset_root}/NaturalObject/data/bold/derivatives/ciftify'
+nifti_path = f'{dataset_root}/NaturalObject/data/bold/nifti'
 
-sub_names = sorted([i for i in os.listdir(beta_path) if i.startswith('sub') and int(i[-2:])<=10 and int(i[-2:]) != 7] )
+sub_names = sorted([i for i in os.listdir(ciftify_path) if i.startswith('sub') and int(i[-2:])<10] )
 result_path = '/nfs/z1/userhome/GongZhengXin/NVP/Analysis_results/data_paper/result/ISCmap'
 n_sub = len(sub_names)
 n_class = 1000

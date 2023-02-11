@@ -103,7 +103,7 @@ def get_roi_data(data, roi_name, hemi=False):
 
 
 # save nifti
-def save_ciftifile(data, filename, template='./template.dtseries.nii'):
+def save_ciftifile(data, filename, template='./supportfiles/template.dtseries.nii'):
     ex_cii = nib.load(template)
     if data.ndim == 1:
       data = data[None,:]
