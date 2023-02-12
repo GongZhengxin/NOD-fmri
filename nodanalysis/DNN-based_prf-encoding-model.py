@@ -16,6 +16,7 @@ from nod_utils import prepare_train_data, prepare_AlexNet_feature, get_voxel_roi
 from nod_utils import relu, get_roi_data, ReceptiveFieldProcessor
 
 warnings.simplefilter('ignore')
+os.chdir(os.path.dirname(__file__))
 # define path
 dataset_root = '/nfs/z1/zhenlab/BrainImageNet'
 ciftify_path = f'{dataset_root}/NaturalObject/data/bold/derivatives/ciftify'
@@ -47,15 +48,19 @@ for sub in subs:
     vtc_areas = ['V8', 'PIT', 'FFC', 'VVC', ['VMV1', 'VMV2', 'VMV3'], ['LO1', 'LO2', 'LO3']]
     evc_areas = ['V1', 'V2', 'V3','V4']
     selected_rois = [__  for _ in [evc_areas, vtc_areas] for __ in _]
-    # selected_rois = [['VMV1', 'VMV2', 'VMV3'], ['LO1', 'LO2', 'LO3']]
 
     # voxel_indices = np.where(np.sum([get_roi_data(None,_) for _ in selected_rois], axis=0)==1)[0]
-
+    #--------------------
+    # feature part 
+    #--------------------
     imgnet_feature = prepare_AlexNet_feature(sub)
     coco_feature = prepare_AlexNet_feature('coco')
-
+    
+    #--------------------
+    # model part 
+    #--------------------
     t0 = time.time()
-
+    # population receptive field
     retino_path = f'{ciftify_path}/{sub}/results/ses-prf_task-prf'
     file_name = f'{sub}_retinotopy-allrun-s4_params.mat' # raw-retinotopy but s4 data
     retino_mat = sio.loadmat(pjoin(retino_path, file_name))['result']
@@ -85,8 +90,6 @@ for sub in subs:
     trans_retinotopy_params[:,1] = np.sin(retinotopy_params[:,0]/180*np.pi)*retinotopy_params[:,1]
     trans_retinotopy_params[:,2] = retinotopy_params[:,2]
     # 
-    # voxels = [1149, 680, 1139, 1257, 1238, 2509, 1150, 2496, 2147, 518, 2066, 197, 11]
-    # alphas = [1e-5, 1e-4, 1e-3, 1e-2, 0.1, 1, 10, 1e2, 1e3, 1e4, 1e5]
     log_file = f'./encoder_records/{sub}-{clean_code}_dnn-based_prfmodel_fe-relu-top50_lassocv_record.log'
     if not os.path.exists(log_file):
         lasso_log = open(log_file, 'w+')
@@ -210,5 +213,3 @@ for sub in subs:
     json.dump(coefs,coef_recod)
     coef_recod.close()
 print(f'consume {time.time()-t0}')
-
-

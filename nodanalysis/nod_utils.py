@@ -139,12 +139,32 @@ def prepare_train_data(sub,code='hp128_s4', metric='run',runperses=10,trlperrun=
     brain_resp = train_data_normalization(brain_resp, metric,runperses,trlperrun)
     return brain_resp
 
+def make_stimcsv(sub):
+    act_path = f'./supportfiles'
+    header = ['type=image\n','path=/nfs/z1/zhenlab/DNN/ImgDatabase/ImageNet_2012/ILSVRC2012_img_train\n',
+                f'title=ImageNet images in {sub}\n','data=stimID\n']
+    # stim files
+    sub_stim = pd.read_csv(pjoin(act_path, f'{sub}_imagenet-label.csv'), sep=',')
+    # replace file name
+    stim_files = []
+    for stim in sub_stim['image_name']:
+        folder = stim.split('_')[0]
+        stim_files.append(f'{folder}/{stim}\n') 
+    save_path = './supportfiles/sub_stim'
+    with open(f'{save_path}/{sub}_imagenet.stim.csv', 'w') as f:
+        f.writelines(header)
+        f.writelines(stim_files)
+
 def prepare_AlexNet_feature(sub):
-    feature_file_path = f'./supportfiles/sub_stim/{sub}_AlexNet.act.h5'
+    act_path = f'./supportfiles/sub_stim'
+    stimcsv = pjoin(act_path, '{sub}_imagenet.stim.csv')
+    if not os.path.exists(stimcsv):
+        make_stimcsv(sub)
+    feature_file_path = pjoin(act_path, f'{sub}_AlexNet.act.h5')
     if not os.path.exists(feature_file_path):
         # make sure dnnbrain have been installed
         print('activation file preparing')
-        cmd = f"dnn_act -net AlexNet -layer conv1 conv2 conv3 conv4 conv5 fc1 fc2 fc3 -stim ./{sub}_imagenet.stim.csv -out ./{sub}.act.h5"
+        cmd = f"dnn_act -net AlexNet -layer conv1 conv2 conv3 conv4 conv5 fc1 fc2 fc3 -stim ./{stimcsv} -out ./{feature_file_path}"
         runcmd(cmd, verbose=1)
     dnn_feature = Activation()
     dnn_feature.load(feature_file_path)
