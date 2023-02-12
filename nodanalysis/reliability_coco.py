@@ -36,10 +36,10 @@ for sub_idx, sub_name in enumerate(sub_names):
         # extract from dscalar.nii
         results_fold = 'results'
         run_names = [ f'ses-coco_task-coco_run-{_+1}' for _ in range(num_run)]
-        sub_beta = np.zeros(num_run, n_class)
+        sub_beta = np.zeros(num_run, n_class, 59412)
         for run_idx, run_name in enumerate(run_names):
             beta_sub_path = pjoin(ciftify_path, sub_name, 'results', run_name, f'{run_name}_beta.dscalar.nii')
-            sub_beta[run_idx, :] = np.asarray(nib.load(beta_sub_path).get_fdata())
+            sub_beta[run_idx, :, :] = np.asarray(nib.load(beta_sub_path).get_fdata())
         # save session beta in ./supportfiles 
         np.save(sub_data_path, sub_beta)
     else: 
