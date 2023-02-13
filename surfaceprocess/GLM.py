@@ -4,57 +4,32 @@ import pandas as pd
 import nibabel as nib
 from sklearn.linear_model import Ridge
 from os.path import join as pjoin
-# from fracridge import FracRidgeRegressor
 from nilearn.glm.first_level import make_first_level_design_matrix
-# from nilearn.plotting import plot_design_matrix
-def _poly_drift(order, frame_times):
-    """Create a polynomial drift matrix
-    """
-    order = int(order)
-    pol = np.zeros((np.size(frame_times), order + 1))
-    tmax = float(frame_times.max())
-    for k in range(order + 1):
-        pol[:, k] = (frame_times / tmax) ** k
-    pol = _orthogonalize(pol)
-    pol = np.hstack((pol[:, 1:], pol[:, :1]))
-    return pol
-
-def _orthogonalize(X):
-    """ Orthogonalize every column of design `X` w.r.t preceding columns
-    """
-    if X.size == X.shape[0]:
-        return X
-
-    from scipy.linalg import pinv
-    for i in range(1, X.shape[1]):
-        X[:, i] -= np.dot(np.dot(X[:, i], X[:, :i]), pinv(X[:, :i]))
-
-    return X
+from surf_utils import save2cifti, _poly_drift, _orthogonalize
 
 # define path
-beta_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/beta'
-ciftify_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/ciftify'
-nifti_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/nifti'
-fprep_path = '/nfs/z1/userhome/GongZhengXin/NVP/NaturalObject/data/bold/derivatives/fmriprep'
+dataset_path = '/nfs/z1/zhenlab/BrainImageNet'
+ciftify_path = f'{dataset_path}/NaturalObject/data/bold/derivatives/ciftify'
+nifti_path = f'{dataset_path}/NaturalObject/'
+fprep_path = f'{dataset_path}/NaturalObject/data/bold/derivatives/fmriprep'
 result_path = '/nfs/z1/zhenlab/BrainImageNet/Analysis_results/data_paper/result'
 frac_path = pjoin(result_path, 'frac') 
 
 # prepare params
 alpha_params = [eval('1e%d'%idx) for idx in np.linspace(-5, 5, 11, dtype=int)]
-sub_names = sorted([i for i in os.listdir(beta_path) if i.startswith('sub') and int(i[-2:])>1])
-# sub_names = ['sub-01']
+sub_names = sorted([i for i in os.listdir(ciftify_path) if i.startswith('sub')])
 target = 'imagenet' # imagenet or coco
-clean_code = 'clean_s4'
+clean_code = 'hp128_s4'
 glm_mode = 'separate' # seperate or full GLM model in coco beta estimate
+motion_on = True
+
 # load hyperparamsinfo: shape: len(sub_names), len(frac_params), 59412
 rdm_corr = np.load(pjoin(result_path, 'rdm_corr.npy')) 
 alpha = alpha_params[rdm_corr.mean(axis=0).argmax()]
 
-print("clean_code:", clean_code)
-
 for sub_idx, sub_name in enumerate(sub_names):
     # prepare basic path
-    beta_clean_path = pjoin(beta_path, sub_name, f'{sub_name}_{target}-beta_{clean_code}_poly3_mot_ridge.npy')
+    beta_clean_path = pjoin(ciftify_path, sub_name, 'results', f'{sub_name}_{target}-beta_{clean_code}_ridge.npy')
     sub_tmp_path = pjoin(nifti_path, sub_name)
     sub_fpr_path = pjoin(fprep_path, sub_name)
     # if not os.path.exists(beta_clean_path):
