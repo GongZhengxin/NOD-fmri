@@ -102,7 +102,11 @@ for sub_idx, sub_name in enumerate(sub_names):
                 bm = list(temp.header.get_index_map(1).brain_models)[0:2]
                 # data load
                 run_data = beta[:, n_event * (run_idx) : n_event * (run_idx + 1)]
-                save2cifti(file_path=pjoin(_result_path, run_name, f'{run_name}_beta.dscalar.nii'), data=run_data, brain_models=bm, map_names=stim_names)
+                dsc_file = pjoin(_result_path, run_name, f'{run_name}_beta.dscalar.nii')
+                save2cifti(file_path=dsc_file, data=run_data, brain_models=bm, map_names=stim_names)
+                txt_file = pjoin(_result_path, run_name, f'{run_name}_label.txt')
+                with open(txt_file, 'w') as f:
+                    f.writelines(stim_names)
             print('Finish performing GLM in %s %s'%(sub_name, sess_name))
     elif target == 'coco':
         # define params:
@@ -170,7 +174,11 @@ for sub_idx, sub_name in enumerate(sub_names):
             temp = nib.load('./supportfiles/template.dtseries.nii')
             bm = list(temp.header.get_index_map(1).brain_models)[0:2]
             # data load
-            save2cifti(file_path=pjoin(_result_path, ses_name, f'{ses_name}_beta.dscalar.nii'), data=run_data, brain_models=bm, map_names=stim_names)
+            dsc_file = pjoin(_result_path, ses_name, f'{ses_name}_beta.dscalar.nii')
+            save2cifti(file_path=dsc_file, data=run_data, brain_models=bm, map_names=stim_names)
+            txt_file = pjoin(_result_path, run_name, f'{run_name}_label.txt')
+            with open(txt_file, 'w') as f:
+                f.writelines(stim_names)
             print('Finish performing GLM in %s %s'%(sub_name, ses_name))
 
         elif glm_mode == 'separate':
@@ -214,6 +222,10 @@ for sub_idx, sub_name in enumerate(sub_names):
                 temp = nib.load('./supportfiles/template.dtseries.nii')
                 bm = list(temp.header.get_index_map(1).brain_models)[0:2]
                 # data load
-                save2cifti(file_path=pjoin(_result_path, run_name, f'{run_name}_beta.dscalar.nii'), data=beta_clean_run, brain_models=bm, map_names=stim_names)
+                dsc_file = pjoin(_result_path, ses_name, f'{ses_name}_beta.dscalar.nii')
+                save2cifti(file_path=dsc_file, data=run_data, brain_models=bm, map_names=stim_names)
+                txt_file = pjoin(_result_path, run_name, f'{run_name}_label.txt')
+                with open(txt_file, 'w') as f:
+                    f.writelines(stim_names)
     # report
     print(f'saved...{sub_name}-{target}')

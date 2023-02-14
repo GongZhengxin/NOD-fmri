@@ -21,10 +21,10 @@ beta_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/b
 cft_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/ciftify/'
 fmriprep_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/fmriprep'
 
-ses_flag  = ['COCO']
-file_flag = ['Atlas_s0.dtseries']
-sub_flag = sorted([i for i in os.listdir(beta_path) if i.startswith('sub') and int(i.split('-')[-1])<=10])
-# sub_flag = ['sub-10']
+ses_flag  = ['Retinotopy']
+file_flag = ['Atlas.dtseries']
+# sub_flag = sorted([i for i in os.listdir(beta_path) if i.startswith('sub') and int(i.split('-')[-1])<=10])
+sub_flag = ['sub-02','sub-03','sub-04','sub-05','sub-10']
 
 Atlas_files = []
 sub_dirs = [pjoin(cft_path, _, 'MNINonLinear/Results/') for _ in os.listdir(cft_path) if _ in sub_flag ]
@@ -39,7 +39,7 @@ Atlas_files = [_ for _ in Atlas_files if ('denoise' not in _) and ('discard' not
 
 for file in tqdm(Atlas_files):
   print(file)
-  if not os.path.exists(file.replace('Atlas_s0', 'Atlas_clean')):
+  if not os.path.exists(file.replace('Atlas', 'Atlas_hp128')):
     img = nib.load(file)
     data = img.get_fdata()[:]
     dataTdim, dataXdim = data.shape[0], data.shape[1]
@@ -82,7 +82,7 @@ for file in tqdm(Atlas_files):
     # data = data - np.dot(motion, reg.coef_.transpose(1, 0))
     # data = data.astype(np.float32)
     # save cifti
-    save_ciftifile(data.astype(np.float32), file.replace('Atlas_s0', 'Atlas_clean'), file)
+    save_ciftifile(data.astype(np.float32), file.replace('Atlas', 'Atlas_hp128'), file)
   # else:
   file_name = file.split('/')[-1]
   nii_file = file.replace(f'{file_name}', 'Atlas.nii.gz')

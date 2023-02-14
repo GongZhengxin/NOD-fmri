@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import nibabel as nib
 from os.path import join as pjoin
-from nod_utils import save_ciftifile
+from nod_utils import save2cifti
 from nilearn.glm.first_level import make_first_level_design_matrix, run_glm
 from nilearn.glm.contrasts import compute_contrast
 
@@ -14,10 +14,6 @@ dataset_root = '/nfs/z1/zhenlab/BrainImageNet'
 fmriprep_path = f'{dataset_root}/NaturalObject/derivatives/fmriprep'
 ciftify_path = f'{dataset_root}/NaturalObject/derivatives/ciftify'
 nifti_path = f'{dataset_root}/NaturalObject/'
-
-# define path
-main_path = '/nfs/z1/zhenlab/BrainImageNet/Analysis_results/'
-beh_path = f'{dataset_root}/NaturalObject/data/behavior/LOCdata'
 result_path = './floc_results'
 
 # load design and perform GLM
@@ -111,6 +107,15 @@ for sub_id, sub_name in enumerate(sub_names):
             print('Finish estimating in %s %s'%(sub_name, run_name))
     z_score_sub = np.delete(z_score_sub, 0, axis=0)
     z_score_sub = np.mean(z_score_sub, axis=0)
-    z_score_sub_path = pjoin(result_path, f'{sub_name}_localizer-z_score{clean_code}.dtseries.nii')
-    save_ciftifile(z_score_sub.astype(np.float32), z_score_sub_path)
+    # get brainmodel
+    temp = nib.load('./supportfiles/template.dtseries.nii')
+    bm = list(temp.header.get_index_map(1).brain_models)[0:2]
+    # file writing
+    dscfile_path = pjoin(result_path, f'{sub_name}-{clean_code}_beta.dscalar.nii')
+    stim_names = ['Character - others', 'Body - others', 'Face - others', 'Place - others', 'Object - others']
+    save2cifti(file_path=dscfile_path, data=z_score_sub.astype(np.float32), brain_models=bm, map_names=stim_names)
+    txt_file = pjoin(result_path, f'{sub_name}-{clean_code}_label.txt')
+    stim_names = '\n'.join(stim_names)
+    with open(txt_file, 'w') as f:
+        f.write(stim_names)
     print(f'Finish loading {sub_name}')

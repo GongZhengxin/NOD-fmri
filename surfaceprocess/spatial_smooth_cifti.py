@@ -13,9 +13,9 @@ cft_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/ci
 fmriprep_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/fmriprep'
 
 ses_flag  = ['Retinotopy']
-file_flag = ['Atlas.dtseries']
-sub_flag = sorted([i for i in os.listdir(beta_path) if i.startswith('sub') and int(i.split('-')[-1])<=10 and int(i.split('-')[-1])!=7])
-# sub_flag = ['sub-08']
+file_flag = ['Atlas_hp128.dtseries']
+# sub_flag = sorted([i for i in os.listdir(beta_path) if i.startswith('sub') and int(i.split('-')[-1])<=10 and int(i.split('-')[-1])!=7])
+sub_flag = ['sub-02']
 
 Atlas_files = []
 sub_dirs = [pjoin(cft_path, _, 'MNINonLinear/Results/') for _ in os.listdir(cft_path) if _ in sub_flag ]
@@ -36,7 +36,7 @@ for file in tqdm(Atlas_files):
   # input_file = file.replace('Atlas_s0', 'Atlas_clean')
   input_file = file
   fwhm = 4
-  output_file = file.replace('Atlas', f'Atlas_s{fwhm}')
+  output_file = file.replace('Atlas_hp128', f'Atlas_hp128_s{fwhm}')
   if os.path.exists(output_file):
     continue
   else:
