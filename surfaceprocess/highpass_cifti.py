@@ -5,29 +5,22 @@ from nibabel import Nifti1Header
 from nibabel import Nifti1Image
 import numpy as np
 import subprocess
-import pandas as pd
-from sklearn.linear_model import LinearRegression
+from surf_utils import save_ciftifile
 from tqdm import tqdm
 
-# save nifti
-def save_ciftifile(data, filename, template):
-    ex_cii = nib.load(template)
-    if data.ndim == 1:
-      data = data[None,:]
-    ex_cii.header.get_index_map(0).number_of_series_points = data.shape[0]
-    nib.save(nib.Cifti2Image(data,ex_cii.header), filename)
+# dedine path
+dataset_path = '/nfs/z1/zhenlab/BrainImageNet'
+cft_path = f'{dataset_path}/NaturalObject/derivatives/ciftify/'
+fmriprep_path = f'{dataset_path}/NaturalObject/derivatives/fmriprep'
 
-beta_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/beta'
-cft_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/ciftify/'
-fmriprep_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/fmriprep'
-
-ses_flag  = ['Retinotopy']
+# flag labels
+ses_flag  = ['retinotopy']
 file_flag = ['Atlas.dtseries']
-# sub_flag = sorted([i for i in os.listdir(beta_path) if i.startswith('sub') and int(i.split('-')[-1])<=10])
-sub_flag = ['sub-02','sub-03','sub-04','sub-05','sub-10']
+sub_flag = sorted([i for i in os.listdir(cft_path) if i.startswith('sub') and int(i.split('-')[-1])<=10])
 
+# collect Atlas files
 Atlas_files = []
-sub_dirs = [pjoin(cft_path, _, 'MNINonLinear/Results/') for _ in os.listdir(cft_path) if _ in sub_flag ]
+sub_dirs = [pjoin(cft_path, _, 'results/') for _ in os.listdir(cft_path) if _ in sub_flag ]
 for sub_dir in sub_dirs:
   ses_dirs = [ _ for _ in os.listdir(sub_dir) if any([__ in _ for __ in ses_flag])]
   for ses_dir in ses_dirs:
@@ -37,6 +30,7 @@ Atlas_files.sort()
 
 Atlas_files = [_ for _ in Atlas_files if ('denoise' not in _) and ('discard' not in _)]
 
+# highpass
 for file in tqdm(Atlas_files):
   print(file)
   if not os.path.exists(file.replace('Atlas', 'Atlas_hp128')):
@@ -63,24 +57,6 @@ for file in tqdm(Atlas_files):
     subprocess.check_call(fsl_cmd, shell=True)
     data = nib.load(pjoin(cft_path, sub_dir, nii_file)).get_fdata()[:]
     data = data.reshape((int(100*datanewZdim), dataTdim))[0:dataXdim,:].transpose() + mean_data
-    # # load motion info
-    # # replace old task name
-    # if 'object' in file:
-    #   file_tmp = file.replace('object', 'naturalvision')
-    # else:
-    #   file_tmp = file
-    # sub_name = file_tmp.split('/')[-5]
-    # run_name = file_tmp.split('/')[-2]
-    # sess_name = run_name.split('_')[0]
-    # confoundcsv = pjoin(fmriprep_path, sub_name, sess_name, 'func', 
-    #                     '{}_{}_desc-confounds_timeseries.tsv'.format(sub_name, run_name))
-    # df_conf = pd.read_csv(confoundcsv, sep='\t')
-    # motion = np.vstack(tuple([np.array(df_conf[_]).astype(np.float64) for _ in \
-    #                   ['trans_x', 'trans_y', 'trans_z', 'rot_x', 'rot_y', 'rot_z']])).transpose(1, 0)
-    # # regress motion here
-    # reg = LinearRegression().fit(motion, data)
-    # data = data - np.dot(motion, reg.coef_.transpose(1, 0))
-    # data = data.astype(np.float32)
     # save cifti
     save_ciftifile(data.astype(np.float32), file.replace('Atlas', 'Atlas_hp128'), file)
   # else:

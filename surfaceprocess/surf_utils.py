@@ -1,5 +1,6 @@
 from nibabel.cifti2 import cifti2
 import os
+import nibabel as nib
 import numpy as np
 import pandas as pd
 from os.path import join as pjoin
@@ -50,6 +51,14 @@ def add_motion_var(design_matrix, sub_fpr_path, sess_name, n_tr, n_run):
     sess_motion = pd.DataFrame(sess_motion, columns=['trans_x', 'trans_y', 'trans_z', 'rot_x', 'rot_y', 'rot_z'])
     design_matrix = pd.concat([design_matrix.reset_index(drop=True), sess_motion], 
                             ignore_index=True, axis=1)
+
+# save nifti
+def save_ciftifile(data, filename, template):
+    ex_cii = nib.load(template)
+    if data.ndim == 1:
+      data = data[None,:]
+    ex_cii.header.get_index_map(0).number_of_series_points = data.shape[0]
+    nib.save(nib.Cifti2Image(data,ex_cii.header), filename)
 
 def save2cifti(file_path, data, brain_models, map_names=None, volume=None, label_tables=None):
     """
