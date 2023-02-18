@@ -8,15 +8,18 @@ import subprocess
 from surf_utils import save_ciftifile
 from tqdm import tqdm
 
-# dedine path
-dataset_path = '/nfs/z1/zhenlab/BrainImageNet'
-cft_path = f'{dataset_path}/NaturalObject/derivatives/ciftify/'
-fmriprep_path = f'{dataset_path}/NaturalObject/derivatives/fmriprep'
+# define paths
+dataset_path = 'PATHtoDataset'
+cft_path = f'{dataset_path}/derivatives/ciftify/'
+fmriprep_path = f'{dataset_path}/derivatives/fmriprep'
 
 # flag labels
-ses_flag  = ['retinotopy']
+ses_flag  = ['imagenet']
 file_flag = ['Atlas.dtseries']
-sub_flag = sorted([i for i in os.listdir(cft_path) if i.startswith('sub') and int(i.split('-')[-1])<=10])
+sub_flag = sorted([i for i in os.listdir(cft_path) if i.startswith('sub')])
+# # if only specific subjects are wanted:
+# sub_flag = ['sub-02', 'sub-03']
+# sub_flag = sorted([i for i in os.listdir(cft_path) if i.startswith('sub') and int(i.split('-')[-1])<=9])
 
 # collect Atlas files
 Atlas_files = []
@@ -28,7 +31,7 @@ for sub_dir in sub_dirs:
     Atlas_files.extend([pjoin(sub_dir, ses_dir, _) for _ in file])
 Atlas_files.sort()
 
-Atlas_files = [_ for _ in Atlas_files if ('denoise' not in _) and ('discard' not in _)]
+Atlas_files = [_ for _ in Atlas_files]
 
 # highpass
 for file in tqdm(Atlas_files):
@@ -58,8 +61,9 @@ for file in tqdm(Atlas_files):
     data = nib.load(pjoin(cft_path, sub_dir, nii_file)).get_fdata()[:]
     data = data.reshape((int(100*datanewZdim), dataTdim))[0:dataXdim,:].transpose() + mean_data
     # save cifti
-    save_ciftifile(data.astype(np.float32), file.replace('Atlas', 'Atlas_hp128'), file)
-  # else:
+    save_ciftifile(data.astype(np.float32), file.replace('Atlas_s0', 'Atlas_hp128'), file)
+  
+  # delete the temporary nii.gz
   file_name = file.split('/')[-1]
   nii_file = file.replace(f'{file_name}', 'Atlas.nii.gz')
   if os.path.exists(nii_file): 

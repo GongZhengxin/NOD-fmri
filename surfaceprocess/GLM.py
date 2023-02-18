@@ -5,23 +5,21 @@ import nibabel as nib
 from sklearn.linear_model import Ridge
 from os.path import join as pjoin
 from nilearn.glm.first_level import make_first_level_design_matrix
-from surf_utils import save2cifti, _poly_drift, _orthogonalize, add_poly_drift, add_motion_var
+from surf_utils import save2cifti, add_poly_drift, add_motion_var
 
 # define path
-dataset_path = '/nfs/z1/zhenlab/BrainImageNet'
-ciftify_path = f'{dataset_path}/NaturalObject/data/bold/derivatives/ciftify'
-nifti_path = f'{dataset_path}/NaturalObject/'
-fprep_path = f'{dataset_path}/NaturalObject/data/bold/derivatives/fmriprep'
-result_path = '/nfs/z1/zhenlab/BrainImageNet/Analysis_results/data_paper/result'
+dataset_path = '/nfs/z1/userhome/GongZhengXin/NVP/data_upload/NOD'
+ciftify_path = f'{dataset_path}/derivatives/ciftify'
+nifti_path = f'{dataset_path}'
+fprep_path = f'{dataset_path}/derivatives/fmriprep'
 
 # prepare params
-alpha_params = [eval('1e%d'%idx) for idx in np.linspace(-5, 5, 11, dtype=int)]
 sub_names = sorted([i for i in os.listdir(ciftify_path) if i.startswith('sub')])
 target = 'imagenet' # imagenet or coco
-clean_code = 'hp128_s4'
+clean_code = 'hp128_s4' # version of surface data, if None the raw surface data will be used
 glm_mode = 'separate' # seperate or full GLM model in coco beta estimate
-motion_on = True
-poly_order = 3
+motion_on = True # whether to include motion regressors
+poly_order = None # whetehr to include drift regressors
 alpha = 0.01
 
 for sub_idx, sub_name in enumerate(sub_names):
@@ -34,8 +32,8 @@ for sub_idx, sub_name in enumerate(sub_names):
         # prepare params
         tr, begin_dur, n_tr, n_event = 2, 16, 256, 100
         # define beta path
-        sess_names = sorted([i for i in os.listdir(sub_nft_path) if ('imagenet' in i)]) 
-        run_names = sorted([i for i in os.listdir(_result_path) if ('imagenet' in i)])
+        sess_names = sorted([i for i in os.listdir(sub_nft_path) if ('imagenet05' in i)]) 
+        run_names = sorted([i for i in os.listdir(_result_path) if ('imagenet05' in i)])
         beta_clean = np.zeros((len(run_names)*n_event, 59412), dtype=np.float32)
 
         # loop in one subject
@@ -57,7 +55,10 @@ for sub_idx, sub_name in enumerate(sub_names):
                 duration = events['duration']
                 onset = events['onset'].to_numpy() + begin_dur
                 # load time series
-                dtseries_path = pjoin(_result_path, run_name, f'{run_name}_Atlas_{clean_code}.dtseries.nii')
+                if clean_code:
+                    dtseries_path = pjoin(_result_path, run_name, f'{run_name}_Atlas_{clean_code}.dtseries.nii')
+                else:
+                    dtseries_path = pjoin(_result_path, run_name, f'{run_name}_Atlas.dtseries.nii')
                 dtseries = nib.load(dtseries_path).get_fdata()
                 print(f'load {dtseries_path}')
                 # concantenate all info into sess params
@@ -86,10 +87,13 @@ for sub_idx, sub_name in enumerate(sub_names):
             # perform GLM
             reg = Ridge(alpha=alpha, fit_intercept=False).fit(design_matrix.values, dtseries_sess[:, :59412])
             beta = reg.coef_[:, :int(n_event*n_run)].transpose(1,0).astype(np.float32)
-            if sess_idx <=3 :
+            if n_run==10:
                 beta_clean[1000*sess_idx:1000*(sess_idx+1)] = beta
             else:
-                beta_clean[1000*sess_idx::] = beta
+                if sess_idx > 0:
+                    beta_clean[1000*sess_idx::] = beta
+                else:
+                    beta_clean = beta
             for run_idx, file in enumerate(events_file):
                 # define run name
                 run_split = file.split('_')
@@ -101,7 +105,7 @@ for sub_idx, sub_name in enumerate(sub_names):
                 temp = nib.load('./supportfiles/template.dtseries.nii')
                 bm = list(temp.header.get_index_map(1).brain_models)[0:2]
                 # data load
-                run_data = beta[:, n_event * (run_idx) : n_event * (run_idx + 1)]
+                run_data = beta[n_event * (run_idx) : n_event * (run_idx + 1), :]
                 dsc_file = pjoin(_result_path, run_name, f'{run_name}_beta.dscalar.nii')
                 save2cifti(file_path=dsc_file, data=run_data, brain_models=bm, map_names=stim_names)
                 txt_file = pjoin(_result_path, run_name, f'{run_name}_label.txt')
@@ -111,7 +115,7 @@ for sub_idx, sub_name in enumerate(sub_names):
     elif target == 'coco':
         # define params:
         tr, begin_dur, n_tr, n_event = 2, 16, 241, 120
-        sess_name = 'ses-COCO'
+        sess_name = 'ses-coco'
         sub_func_path = pjoin(sub_nft_path, sess_name, 'func')
         events_file = sorted([i for i in os.listdir(sub_func_path) if 'events' in i ])
         n_run = len(events_file)
@@ -135,7 +139,10 @@ for sub_idx, sub_name in enumerate(sub_names):
                 label_sub = events_raw['trial_type'].to_numpy()
                 trial_type = ['image%03d'%idx for idx in label_sub]
                 # load time series
-                dtseries_path = pjoin(_result_path, run_name, f'{run_name}_Atlas_{clean_code}.dtseries.nii')
+                if clean_code:
+                    dtseries_path = pjoin(_result_path, run_name, f'{run_name}_Atlas_{clean_code}.dtseries.nii')
+                else:
+                    dtseries_path = pjoin(_result_path, run_name, f'{run_name}_Atlas.dtseries.nii')
                 dtseries = nib.load(dtseries_path).get_fdata()
                 print(f'load {dtseries_path}')
                 # concantenate all info into sess params
@@ -199,7 +206,10 @@ for sub_idx, sub_name in enumerate(sub_names):
                 label_sub = events_raw['trial_type'].to_numpy()
                 trial_type = ['image%03d'%idx for idx in label_sub]
                 # load time series
-                dtseries_path = pjoin(_result_path, run_name, f'{run_name}_Atlas_{clean_code}.dtseries.nii')
+                if clean_code:
+                    dtseries_path = pjoin(_result_path, run_name, f'{run_name}_Atlas_{clean_code}.dtseries.nii')
+                else:
+                    dtseries_path = pjoin(_result_path, run_name, f'{run_name}_Atlas.dtseries.nii')
                 dtseries = nib.load(dtseries_path).get_fdata()
                 print(f'load {dtseries_path}')
                 # prepare design matrix
