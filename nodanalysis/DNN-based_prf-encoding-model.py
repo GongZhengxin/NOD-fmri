@@ -1,7 +1,7 @@
 import os
 import time
 import numpy as np
-import scipy.io as sio
+import nibabel as nib
 import json
 import warnings
 from scipy.stats import zscore
@@ -16,16 +16,18 @@ from nod_utils import prepare_train_data, prepare_AlexNet_feature, get_voxel_roi
 from nod_utils import relu, get_roi_data, ReceptiveFieldProcessor
 
 warnings.simplefilter('ignore')
-os.chdir(os.path.dirname(__file__))
+# os.chdir(os.path.dirname(__file__))
 # define path
-dataset_root = '/nfs/z1/zhenlab/BrainImageNet'
-ciftify_path = f'{dataset_root}/NaturalObject/data/bold/derivatives/ciftify'
-# prepare data
-prepare_imagenet_data(dataset_root)
-prepare_coco_data(dataset_root)
+dataset_root = '/nfs/z1/userhome/GongZhengXin/NVP/data_upload/NOD'#'PATHtoDataset'
+ciftify_path = f'{dataset_root}/derivatives/ciftify'
+
 # set subject
-subs = ['sub-04']
+subs = ['sub-01']
 clean_code = 'hp128_s4'
+
+# prepare data
+prepare_imagenet_data(dataset_root, sub_names=subs)
+prepare_coco_data(dataset_root,  sub_names=subs)
 
 # subject models
 for sub in subs:
@@ -53,8 +55,8 @@ for sub in subs:
     #--------------------
     # feature part 
     #--------------------
-    imgnet_feature = prepare_AlexNet_feature(sub)
-    coco_feature = prepare_AlexNet_feature('coco')
+    imgnet_feature = prepare_AlexNet_feature(sub, data_path=dataset_root)
+    coco_feature = prepare_AlexNet_feature('coco', data_path=dataset_root)
     
     #--------------------
     # model part 
@@ -62,16 +64,15 @@ for sub in subs:
     t0 = time.time()
     # population receptive field
     retino_path = f'{ciftify_path}/{sub}/results/ses-prf_task-prf'
-    file_name = f'{sub}_retinotopy-allrun-s4_params.mat' # raw-retinotopy but s4 data
-    retino_mat = sio.loadmat(pjoin(retino_path, file_name))['result']
+    file_name = f'ses-prf_task-prf_params.dscalar.nii' 
+    retino_data = nib.load(pjoin(retino_path, file_name)).get_fdata()
     n_vertices = brain_resp.shape[-1]
     retinotopy_params = np.zeros((n_vertices, 3))
-    retinotopy_params[:,0] = retino_mat[0,0]['ang'][0:n_vertices,0]
-    retinotopy_params[:,1] = retino_mat[0,0]['ecc'][0:n_vertices,0]*16/200
-    retinotopy_params[:,2] = retino_mat[0,0]['rfsize'][0:n_vertices,0]*16/200
-    # 
-    # r2 = retino_mat[0,0]['R2'][np.where(np.isnan(retino_mat[0,0]['R2'])==0)]
-    r2 = retino_mat[0,0]['R2'][0:59412, 0]
+    retinotopy_params[:,0] = retino_data[0,0:n_vertices]
+    retinotopy_params[:,1] = retino_data[1,0:n_vertices]*16/200
+    retinotopy_params[:,2] = retino_data[2,0:n_vertices]*16/200
+    # R2
+    r2 =retino_data[3,0:59412]
     for i, roi in enumerate(selected_rois) :
         roi_indices = np.where(get_roi_data(None, roi)==1)
         roi_r2 = r2[roi_indices]

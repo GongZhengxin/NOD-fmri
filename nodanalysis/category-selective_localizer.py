@@ -3,17 +3,17 @@ import numpy as np
 import pandas as pd
 import nibabel as nib
 from os.path import join as pjoin
-from nod_utils import save2cifti
+from nod_utils import save2cifti, _orthogonalize
 from nilearn.glm.first_level import make_first_level_design_matrix, run_glm
 from nilearn.glm.contrasts import compute_contrast
 
 # change to path of current file
 os.chdir(os.path.dirname(__file__))
 # define path
-dataset_root = '/nfs/z1/zhenlab/BrainImageNet'
-fmriprep_path = f'{dataset_root}/NaturalObject/derivatives/fmriprep'
-ciftify_path = f'{dataset_root}/NaturalObject/derivatives/ciftify'
-nifti_path = f'{dataset_root}/NaturalObject/'
+dataset_root = '/nfs/z1/userhome/GongZhengXin/NVP/data_upload/NOD'#'PATHtoDataset'
+fmriprep_path = f'{dataset_root}/derivatives/fmriprep'
+ciftify_path = f'{dataset_root}/derivatives/ciftify'
+nifti_path = f'{dataset_root}'
 result_path = './floc_results'
 
 # load design and perform GLM
@@ -33,26 +33,30 @@ clean_code = 'hp128_s4'
 
 for sub_id, sub_name in enumerate(sub_names):
     z_score_sub = np.zeros((1, 5, 91282))
-    sess_names = sorted([i for i in os.listdir(pjoin(nifti_path, sub_name)) if 'ses_floc' in i])
+    sess_names = sorted([i for i in os.listdir(pjoin(nifti_path, sub_name)) if 'ses-floc' in i])
     # start runnning
     for sess_id, sess_name in enumerate(sess_names):
-        sess_path = pjoin(nifti_path, sub_name, sess_name)
+        sess_path = pjoin(nifti_path, sub_name, sess_name, 'func')
         run_names = sorted([i for i in os.listdir(sess_path) if i.endswith('.tsv')])
+        sub_cnfd_path =pjoin(fmriprep_path, sub_name, sess_name, 'func')
+        cnfd_files = sorted([i for i in os.listdir(sub_cnfd_path) if ('confounds_timeseries.tsv' in i)])
         for run_id, run_name in enumerate(run_names):
             run_path = pjoin(sess_path, run_name)
-            run_par = pd.read_csv(run_path, sep='\t', header=None)
+            run_par = pd.read_csv(run_path, sep='\t')
             # fit design matrix based on trial onset time
-            onset = run_par.iloc[:, 0].to_numpy()
-            category_idx = run_par.iloc[:, 2].to_numpy()
-            category_names = run_par.iloc[:, 3]
-            # detele baseline trial type
-            category_loc = category_idx != 0
-            onset = onset[category_loc]
-            trial_type = category_names[category_loc]
+            onset = run_par['onset'].to_numpy()
+            trial_type = run_par['trial_type']
             duration = np.repeat(4, trial_type.shape[0])
-            # prepare design matrix
+            # prepare events
             events_used = pd.DataFrame({'trial_type':trial_type, 'onset':onset, 'duration':duration})
-            design_matrix = make_first_level_design_matrix(frame_times, events_used, hrf_model='spm')
+            # prepare motion regressors
+            cnfd_file = cnfd_files[run_id]
+            confounds = pd.read_csv(pjoin(sub_cnfd_path, cnfd_file), sep='\t')
+            cnfd_run = confounds.loc[:,['trans_x', 'trans_y', 'trans_z', 'rot_x', 'rot_y', 'rot_z']].values
+            run_motion = _orthogonalize(cnfd_run)
+            run_motion = pd.DataFrame(run_motion, columns=['trans_x', 'trans_y', 'trans_z', 'rot_x', 'rot_y', 'rot_z'])
+            # prepare design matrix
+            design_matrix = make_first_level_design_matrix(frame_times, events_used, hrf_model='spm',add_regs=run_motion)
             # load dtseries
             run_name = 'ses-floc_task-floc_run-%d'%(run_id+1)
             dtseries_path = pjoin(ciftify_path, sub_name, 'results/', run_name, 
@@ -73,7 +77,7 @@ for sub_id, sub_name in enumerate(sub_names):
             # Object-selective regions: [car instrument] > [word number body limb child adult corridor house]
             
             contrast_matrix = np.eye(design_matrix.shape[1])
-            basic_contrasts = dict([(column, contrast_matrix[i]) for i, column in enumerate([i[1:] for i in design_matrix.columns])])
+            basic_contrasts = dict([(column, contrast_matrix[i]) for i, column in enumerate([i for i in design_matrix.columns])])
             contrasts = {
                 'character': (
                     (basic_contrasts['word'] + basic_contrasts['number'])/2 - (basic_contrasts['body'] + basic_contrasts['limb'] + basic_contrasts['child']

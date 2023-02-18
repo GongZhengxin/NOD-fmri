@@ -13,24 +13,17 @@ from nibabel import cifti2
 from dnnbrain.dnn.core import Activation
 
 
-
 def waitsecs(t=1600):
     print('sleep now')
     time.sleep(t)
     print('wake up')
 
-def load_mask(sub,mask_suffix):
-    mask_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/code/nodanalysis/voxel_masks'
-    mask_file_path = pjoin(mask_path, f'{sub}_{mask_suffix}_fullmask.npy')
-    return np.load(mask_file_path)
-
-def prepare_imagenet_data(dataset_root,support_path='./supportfiles',clean_code='hp128_s4'):
-    # change to path of current file
-    os.chdir(os.path.dirname(__file__))
+def prepare_imagenet_data(dataset_root, sub_names=None, support_path='./supportfiles',clean_code='hp128_s4'):
     # define path
-    ciftify_path = f'{dataset_root}/NaturalObject/data/bold/derivatives/ciftify'
-    nifti_path = f'{dataset_root}/NaturalObject/data/bold/nifti'
-    sub_names = sorted([i for i in os.listdir(ciftify_path) if i.startswith('sub') and int(i[-2:])<10] )
+    ciftify_path = f'{dataset_root}/derivatives/ciftify'
+    nifti_path = f'{dataset_root}'
+    if not sub_names:
+        sub_names = sorted([i for i in os.listdir(ciftify_path) if i.startswith('sub') ] )
     n_class = 1000
     num_ses, num_run, num_trial = 4, 10, 100 
     vox_num = 59412
@@ -43,14 +36,14 @@ def prepare_imagenet_data(dataset_root,support_path='./supportfiles',clean_code=
             sub_events_path = pjoin(nifti_path, sub_name)
             df_img_name = []
             # find imagenet task
-            imagenet_sess = [_ for _ in os.listdir(sub_events_path) if ('ImageNet' in _) and ('5' not in _)]
+            imagenet_sess = [_ for _ in os.listdir(sub_events_path) if ('imagenet' in _) and ('05' not in _)]
             imagenet_sess.sort()# Remember to sort list !!!
             # loop sess and run
             for sess in imagenet_sess:
                 for run in np.linspace(1,10,10, dtype=int):
                     # open ev file
                     events_file = pjoin(sub_events_path, sess, 'func',
-                                        '{:s}_{:s}_task-naturalvision_run-{:02d}_events.tsv'.format(sub_name, sess, run))
+                                        '{:s}_{:s}_task-imagenet_run-{:02d}_events.tsv'.format(sub_name, sess, run))
                     tmp_df = pd.read_csv(events_file, sep="\t")
                     df_img_name.append(tmp_df.loc[:, ['trial_type', 'stim_file']])
             df_img_name = pd.concat(df_img_name)
@@ -73,32 +66,33 @@ def prepare_imagenet_data(dataset_root,support_path='./supportfiles',clean_code=
         beta_sub_path = pjoin(support_path, f'{sub_name}_imagenet-beta_{clean_code}_ridge.npy')
         if not os.path.exists(beta_sub_path):
             # extract from dscalar.nii
-            beta_sub = np.zeros(num_ses, num_run*num_trial, vox_num)
+            beta_sub = np.zeros((num_ses, num_run*num_trial, vox_num))
             for i_ses in range(num_ses):
                 for i_run in range(num_run):
-                    run_name = f'ses-coco_task-imagnet{i_ses+1:02d}_run-{i_run+1}'
-                    beta_sub_path = pjoin(ciftify_path, sub_name, 'results', run_name, f'{run_name}_beta.dscalar.nii')
-                    beta_sub[i_ses, i_run*num_trial : (i_run + 1)*num_trial, :] = np.asarray(nib.load(beta_sub_path).get_fdata())
+                    run_name = f'ses-imagenet{i_ses+1:02d}_task-imagenet_run-{i_run+1}'
+                    beta_data_path = pjoin(ciftify_path, sub_name, 'results', run_name, f'{run_name}_beta.dscalar.nii')
+                    beta_sub[i_ses, i_run*num_trial : (i_run + 1)*num_trial, :] = np.asarray(nib.load(beta_data_path).get_fdata())
             # save session beta in ./supportfiles 
             np.save(beta_sub_path, beta_sub)
 
 
-def prepare_coco_data(dataset_root,support_path='./supportfiles',clean_code='hp128_s4'):
+def prepare_coco_data(dataset_root, sub_names=None, support_path='./supportfiles',clean_code='hp128_s4'):
     # change to path of current file
     os.chdir(os.path.dirname(__file__))
     # define path
-    ciftify_path = f'{dataset_root}/NaturalObject/data/bold/derivatives/ciftify'
-    # Load COCO beta for 10 subjects 
-    sub_names = sorted([i for i in os.listdir(ciftify_path) if i.startswith('sub') and int(i[-2:])<=9])
+    ciftify_path = f'{dataset_root}/derivatives/ciftify'
+    # Load COCO beta for 10 subjects
+    if not sub_names:
+        sub_names = sorted([i for i in os.listdir(ciftify_path) if i.startswith('sub') and int(i[-2:])<=9])
     num_run = 10
     n_class = 120
-    clean_code = 'hcp128_s4'
+    clean_code = 'hp128_s4'
     for _, sub_name in enumerate(sub_names):
         sub_data_path = f'{support_path}/{sub_name}_coco-beta_{clean_code}_ridge.npy'
         if not os.path.exists(sub_data_path):
             # extract from dscalar.nii
             run_names = [ f'ses-coco_task-coco_run-{_+1}' for _ in range(num_run)]
-            sub_beta = np.zeros(num_run, n_class, 59412)
+            sub_beta = np.zeros((num_run, n_class, 59412))
             for run_idx, run_name in enumerate(run_names):
                 beta_sub_path = pjoin(ciftify_path, sub_name, 'results', run_name, f'{run_name}_beta.dscalar.nii')
                 sub_beta[run_idx, :, :] = np.asarray(nib.load(beta_sub_path).get_fdata())
@@ -136,30 +130,48 @@ def prepare_train_data(sub,code='hp128_s4', metric='run',runperses=10,trlperrun=
     data_path = './supportfiles'
     file_name = f'{sub}_imagenet-beta_{code}_ridge.npy'
     brain_resp = np.load(pjoin(data_path, file_name))
+    brain_resp = brain_resp.reshape((-1,brain_resp.shape[-1]))
     brain_resp = train_data_normalization(brain_resp, metric,runperses,trlperrun)
     return brain_resp
 
-def make_stimcsv(sub):
+def make_stimcsv(sub, data_path):
     act_path = f'./supportfiles'
-    header = ['type=image\n','path=/nfs/z1/zhenlab/DNN/ImgDatabase/ImageNet_2012/ILSVRC2012_img_train\n',
-                f'title=ImageNet images in {sub}\n','data=stimID\n']
-    # stim files
-    sub_stim = pd.read_csv(pjoin(act_path, f'{sub}_imagenet-label.csv'), sep=',')
-    # replace file name
-    stim_files = []
-    for stim in sub_stim['image_name']:
-        folder = stim.split('_')[0]
-        stim_files.append(f'{folder}/{stim}\n') 
     save_path = './supportfiles/sub_stim'
-    with open(f'{save_path}/{sub}_imagenet.stim.csv', 'w') as f:
-        f.writelines(header)
-        f.writelines(stim_files)
+    if not os.path.exists(save_path):
+            os.makedirs(save_path)
+    if sub == 'coco':
+        if not os.path.exists(f'{save_path}/coco.stim.csv'):
+            header = ['type=image\n',f'path={data_path}/stimuli/coco\n',
+                    f'title=ImageNet images in {sub}\n','data=stimID\n']
+            # stim files
+            sub_stim = pd.read_csv(pjoin(act_path, f'coco_images.csv'), sep=',')
+            stim_files = '\n'.join(sub_stim['img'].tolist())
+            with open(f'{save_path}/coco.stim.csv', 'w') as f:
+                f.writelines(header)
+                f.writelines(stim_files)
+    else:
+        header = ['type=image\n',f'path={data_path}/stimuli/\n',
+                    f'title=ImageNet images in {sub}\n','data=stimID\n']
+        # stim files
+        sub_stim = pd.read_csv(pjoin(act_path, f'{sub}_imagenet-label.csv'), sep=',')
+        # replace file name
+        stim_files = '\n'.join(sub_stim['image_name'].tolist())
+        with open(f'{save_path}/{sub}_imagenet.stim.csv', 'w') as f:
+            f.writelines(header)
+            f.writelines(stim_files)
 
-def prepare_AlexNet_feature(sub):
+def prepare_AlexNet_feature(sub, data_path):
     act_path = f'./supportfiles/sub_stim'
-    stimcsv = pjoin(act_path, '{sub}_imagenet.stim.csv')
-    if not os.path.exists(stimcsv):
-        make_stimcsv(sub)
+    if not os.path.exists(act_path):
+        os.makedirs(act_path)
+    if sub == 'coco':
+        stimcsv = pjoin(act_path, f'coco.stim.csv')
+        if not os.path.exists(stimcsv):
+            make_stimcsv(sub, data_path)
+    else:
+        stimcsv = pjoin(act_path, f'{sub}_imagenet.stim.csv')
+        if not os.path.exists(stimcsv):
+            make_stimcsv(sub, data_path)
     feature_file_path = pjoin(act_path, f'{sub}_AlexNet.act.h5')
     if not os.path.exists(feature_file_path):
         # make sure dnnbrain have been installed
@@ -216,7 +228,17 @@ def get_roi_data(data, roi_name, hemi=False):
         elif hemi == 'R':
             return roi_brain==(181+roi_list.index(roi_name))
 
+def _orthogonalize(X):
+    """ Orthogonalize every column of design `X` w.r.t preceding columns
+    """
+    if X.size == X.shape[0]:
+        return X
 
+    from scipy.linalg import pinv
+    for i in range(1, X.shape[1]):
+        X[:, i] -= np.dot(np.dot(X[:, i], X[:, :i]), pinv(X[:, :i]))
+
+    return X
 
 # save nifti
 def save_ciftifile(data, filename, template='./supportfiles/template.dtseries.nii'):
