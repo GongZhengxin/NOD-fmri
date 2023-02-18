@@ -1,8 +1,8 @@
 """
-    run cmd
+    batch processing for participants 
 """
 
-import os, argparse, subprocess, re
+import os, argparse, subprocess
 
 def run_cmd(args):
     # input
@@ -13,30 +13,10 @@ def run_cmd(args):
     if args.subject:
         subjects = args.subject
     else:
-        subjects = [sub.replace("sub-", "") for sub in os.listdir(os.path.join(projectdir, 'data', 'bold', 'nifti')) if "sub-" in sub]
+        subjects = [sub.replace("sub-", "") for sub in os.listdir(os.path.join(projectdir)) if "sub-" in sub]
     for subject in subjects:
-        # # session
-        # if args.session:
-        #     sessions = args.session
-        # else:
-        #     sessions = [ses.replace("ses-", "") for ses in os.listdir(os.path.join(projectdir, 'data', 'bold', 'nifti', 'sub-' + subject)) if "ses-" in ses]
-        # for session in sessions:
-        #     # run
-        #     if args.run:
-        #         runs = args.run
-        #     else:
-        #         runs = []
-        #         for filename in os.listdir(os.path.join(projectdir, 'data', 'bold', 'nifti', 'sub-' + subject, 'ses-' + session, 'func')):
-        #             if '_bold.nii.gz' in filename:
-        #                 runs.append(re.findall('run-(.+?)_bold', filename)[0])
-        #     for run in runs:
-                # adjust cmd
         if '<subject>' in cmd:
             cmd1 = cmd.replace('<subject>', subject)
-        # if '<session>' in cmd:
-        #     cmd1 = cmd1.replace('<session>', session)
-        # if '<run>' in cmd:
-        #     cmd1 = cmd1.replace('<run>', str(int(run)))
         print(cmd1)
         # run cmd
         if not args.preview:

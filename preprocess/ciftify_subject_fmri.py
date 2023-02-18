@@ -5,19 +5,17 @@ from tqdm import tqdm
 
 #%%
 ncpu = input('Cpu num:')
-#start = input('Start index:')
-#end = input('End index:')
-
-# %%
 
 # input path includes all subject folds
-input_path = '/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/fmriprep'
+prj_dir = 'PATHtoDataset'
+input_path = pjoin(prj_dir, 'derivatives/fmriprep')
 
 # flags for selection
-sub_flag = ['sub-01']#, 'sub-02','sub-04','sub-05','sub-06'
-ses_flag = ['ses-ImageNet01']
+# set subjects, sessions, files that waiting for ciftify transformation
+sub_flag = ['sub-01']
+ses_flag = ['ses-imagenet03','imagenet04'] # ses-prf | ses-floc | ses-coco
 mod_flag = ['func']
-file_flag = ['space-T1w_desc-preproc_bold_hp128.nii']
+file_flag = ['space-T1w_desc-preproc_bold.nii']
 
 # initialize func_files
 func_files = []
@@ -37,12 +35,8 @@ for subject in subject_folds:
             func_files.extend([pjoin(input_path,subject,session,modality,file) for file in \
                   current_files])
 
-#retino_func_files = [_ for _ in func_files if 'retinotopy' in _]
-#other_func_files = list(set(func_files) - set(retino_func_files))
-
 #%% run cml
-#ciftify_work_dir = '/nfs/m1/BrainImageNet/NaturalObject/data/bold/Analysis_derivatives/ciftify'
-cmd_export = 'export CIFTIFY_WORKDIR=/nfs/z1/zhenlab/BrainImageNet/NaturalObject/data/bold/derivatives/ciftify;'
+cmd_export = f'export CIFTIFY_WORKDIR={prj_dir}/derivatives/ciftify;'
 cmd_pre = f'ciftify_subject_fmri --surf-reg MSMSulc --n_cpus {ncpu}'
 for func_file in tqdm(func_files):
     out_name = os.path.basename(func_file).split('.')[0]
