@@ -59,7 +59,7 @@ A GLM analysis was conducted for the category-selective localizer experiment to 
 
 **code: ./validation/category-selective_localizer.py**
 
-### encoding model
+### Correspondence between visual stream and DCNN
 We combined the data from ImageNet, COCO, and functional localizer experiments to build an encoding model to replicate the hierarchical correspondences of representation between the brain and the DCNN. The encoding models were built to map artificial representations from each layer of the pre-trained AlexNet to neural representations from each area of the ventral visual pathway as defined in the multimodal parcellation atlas. Artificial representations from DCNN were abtained by DNNBrain toolbox (https://dnnbrain.readthedocs.io/en/latest/index.html), some parts of the code are dependent the toolbox, please make sure the toolbox is set on your machine before running the encoding model code.
 
 **code: ./validation/DNN-based_prf-encoding-model.py**
