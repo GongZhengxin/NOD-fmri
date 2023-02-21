@@ -228,6 +228,18 @@ def get_roi_data(data, roi_name, hemi=False):
         elif hemi == 'R':
             return roi_brain==(181+roi_list.index(roi_name))
 
+def _poly_drift(order, frame_times):
+    """Create a polynomial drift matrix
+    """
+    order = int(order)
+    pol = np.zeros((np.size(frame_times), order + 1))
+    tmax = float(frame_times.max())
+    for k in range(order + 1):
+        pol[:, k] = (frame_times / tmax) ** k
+    pol = _orthogonalize(pol)
+    pol = np.hstack((pol[:, 1:], pol[:, :1]))
+    return pol
+
 def _orthogonalize(X):
     """ Orthogonalize every column of design `X` w.r.t preceding columns
     """
@@ -239,6 +251,29 @@ def _orthogonalize(X):
         X[:, i] -= np.dot(np.dot(X[:, i], X[:, :i]), pinv(X[:, :i]))
 
     return X
+
+# add drift
+def add_poly_drift(design_matrix, n_tr, n_run, tr, poly_order):
+    run_drift = np.zeros((n_tr*n_run, poly_order)) 
+    run_frames = np.arange(n_tr) * tr
+    drift_matrix = _poly_drift(order=poly_order, frame_times=run_frames) 
+    for i in range(poly_order):
+        run_drift[:,i] = np.tile(drift_matrix[:,i], n_run)
+    run_drift = pd.DataFrame(run_drift, columns=['drift-%02d'%(i+1) for i in range(poly_order)])
+    design_matrix = pd.concat([design_matrix.reset_index(drop=True), run_drift], 
+                            ignore_index=True, axis=1)
+# add motion 
+def add_motion_var(design_matrix, sub_fpr_path, sess_name, n_tr, n_run):
+    sub_cnfd_path =pjoin(sub_fpr_path, sess_name, 'func')
+    cnfd_file = sorted([i for i in os.listdir(sub_cnfd_path) if ('confounds_timeseries.tsv' in i)])
+    cnfd_sess = np.zeros((int(n_tr*n_run), 6))
+    for run_idx, file in enumerate(cnfd_file):
+        confounds = pd.read_csv(pjoin(sub_cnfd_path, file), sep='\t')
+        cnfd_sess[n_tr*run_idx:n_tr*(run_idx+1),:] = confounds.loc[:,['trans_x', 'trans_y', 'trans_z', 'rot_x', 'rot_y', 'rot_z']].values
+    sess_motion = _orthogonalize(cnfd_sess)
+    sess_motion = pd.DataFrame(sess_motion, columns=['trans_x', 'trans_y', 'trans_z', 'rot_x', 'rot_y', 'rot_z'])
+    design_matrix = pd.concat([design_matrix.reset_index(drop=True), sess_motion], 
+                            ignore_index=True, axis=1)
 
 # save nifti
 def save_ciftifile(data, filename, template='./supportfiles/template.dtseries.nii'):

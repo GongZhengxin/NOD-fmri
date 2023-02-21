@@ -5,7 +5,7 @@ import nibabel as nib
 from sklearn.linear_model import Ridge
 from os.path import join as pjoin
 from nilearn.glm.first_level import make_first_level_design_matrix
-from surf_utils import save2cifti, add_poly_drift, add_motion_var
+from nod_utils import save2cifti, add_poly_drift, add_motion_var
 
 # define path
 dataset_path = '/nfs/z1/userhome/GongZhengXin/NVP/data_upload/NOD'
