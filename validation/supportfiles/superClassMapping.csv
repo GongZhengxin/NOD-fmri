@@ -1,0 +1,1001 @@
+classID,superClassID,className,superClassName
+n01440764,5,tench,fish
+n01443537,5,goldfish,fish
+n01484850,5,great white shark,fish
+n01491361,5,tiger shark,fish
+n01494475,5,hammerhead,fish
+n01496331,5,electric ray,fish
+n01498041,5,stingray,fish
+n01514668,6,cock,bird
+n01514859,6,hen,bird
+n01518878,6,ostrich,bird
+n01530575,6,brambling,bird
+n01531178,6,goldfinch,bird
+n01532829,6,house finch,bird
+n01534433,6,junco,bird
+n01537544,6,indigo bunting,bird
+n01558993,6,robin,bird
+n01560419,6,bulbul,bird
+n01580077,6,jay,bird
+n01582220,6,magpie,bird
+n01592084,6,chickadee,bird
+n01601694,6,water ouzel,bird
+n01608432,6,kite,bird
+n01614925,6,bald eagle,bird
+n01616318,6,vulture,bird
+n01622779,6,great grey owl,bird
+n01629819,7,European fire salamander,amphibian
+n01630670,7,common newt,amphibian
+n01631663,7,eft,amphibian
+n01632458,7,spotted salamander,amphibian
+n01632777,7,axolotl,amphibian
+n01641577,7,bullfrog,amphibian
+n01644373,7,tree frog,amphibian
+n01644900,7,tailed frog,amphibian
+n01664065,8,loggerhead,reptile
+n01665541,8,leatherback turtle,reptile
+n01667114,8,mud turtle,reptile
+n01667778,8,terrapin,reptile
+n01669191,8,box turtle,reptile
+n01675722,8,banded gecko,reptile
+n01677366,8,common iguana,reptile
+n01682714,8,American chameleon,reptile
+n01685808,8,whiptail,reptile
+n01687978,8,agama,reptile
+n01688243,8,frilled lizard,reptile
+n01689811,8,alligator lizard,reptile
+n01692333,8,Gila monster,reptile
+n01693334,8,green lizard,reptile
+n01694178,8,African chameleon,reptile
+n01695060,8,Komodo dragon,reptile
+n01697457,8,African crocodile,reptile
+n01698640,8,American alligator,reptile
+n01704323,8,triceratops,reptile
+n01728572,8,thunder snake,reptile
+n01728920,8,ringneck snake,reptile
+n01729322,8,hognose snake,reptile
+n01729977,8,green snake,reptile
+n01734418,8,king snake,reptile
+n01735189,8,garter snake,reptile
+n01737021,8,water snake,reptile
+n01739381,8,vine snake,reptile
+n01740131,8,night snake,reptile
+n01742172,8,boa constrictor,reptile
+n01744401,8,rock python,reptile
+n01748264,8,Indian cobra,reptile
+n01749939,8,green mamba,reptile
+n01751748,8,sea snake,reptile
+n01753488,8,horned viper,reptile
+n01755581,8,diamondback,reptile
+n01756291,8,sidewinder,reptile
+n01768244,16,trilobite,invertebrate
+n01770081,16,harvestman,invertebrate
+n01770393,16,scorpion,invertebrate
+n01773157,16,black and gold garden spider,invertebrate
+n01773549,16,barn spider,invertebrate
+n01773797,16,garden spider,invertebrate
+n01774384,16,black widow,invertebrate
+n01774750,16,tarantula,invertebrate
+n01775062,16,wolf spider,invertebrate
+n01776313,16,tick,invertebrate
+n01784675,16,centipede,invertebrate
+n01795545,6,black grouse,bird
+n01796340,6,ptarmigan,bird
+n01797886,6,ruffed grouse,bird
+n01798484,6,prairie chicken,bird
+n01806143,6,peacock,bird
+n01806567,6,quail,bird
+n01807496,6,partridge,bird
+n01817953,6,African grey,bird
+n01818515,6,macaw,bird
+n01819313,6,sulphur-crested cockatoo,bird
+n01820546,6,lorikeet,bird
+n01824575,6,coucal,bird
+n01828970,6,bee eater,bird
+n01829413,6,hornbill,bird
+n01833805,6,hummingbird,bird
+n01843065,6,jacamar,bird
+n01843383,6,toucan,bird
+n01847000,6,drake,bird
+n01855032,6,red-breasted merganser,bird
+n01855672,6,goose,bird
+n01860187,6,black swan,bird
+n01871265,14,tusker,mammal
+n01872401,14,echidna,mammal
+n01873310,14,platypus,mammal
+n01877812,14,wallaby,mammal
+n01882714,14,koala,mammal
+n01883070,14,wombat,mammal
+n01910747,16,jellyfish,invertebrate
+n01914609,16,sea anemone,invertebrate
+n01917289,16,brain coral,invertebrate
+n01924916,16,flatworm,invertebrate
+n01930112,16,nematode,invertebrate
+n01943899,16,conch,invertebrate
+n01944390,16,snail,invertebrate
+n01945685,16,slug,invertebrate
+n01950731,16,sea slug,invertebrate
+n01955084,16,chiton,invertebrate
+n01968897,16,chambered nautilus,invertebrate
+n01978287,16,Dungeness crab,invertebrate
+n01978455,16,rock crab,invertebrate
+n01980166,16,fiddler crab,invertebrate
+n01981276,16,king crab,invertebrate
+n01983481,16,American lobster,invertebrate
+n01984695,16,spiny lobster,invertebrate
+n01985128,16,crayfish,invertebrate
+n01986214,16,hermit crab,invertebrate
+n01990800,16,isopod,invertebrate
+n02002556,6,white stork,bird
+n02002724,6,black stork,bird
+n02006656,6,spoonbill,bird
+n02007558,6,flamingo,bird
+n02009229,6,little blue heron,bird
+n02009912,6,American egret,bird
+n02011460,6,bittern,bird
+n02012849,6,crane,bird
+n02013706,6,limpkin,bird
+n02017213,6,European gallinule,bird
+n02018207,6,American coot,bird
+n02018795,6,bustard,bird
+n02025239,6,ruddy turnstone,bird
+n02027492,6,red-backed sandpiper,bird
+n02028035,6,redshank,bird
+n02033041,6,dowitcher,bird
+n02037110,6,oystercatcher,bird
+n02051845,6,pelican,bird
+n02056570,6,king penguin,bird
+n02058221,6,albatross,bird
+n02066245,14,grey whale,mammal
+n02071294,14,killer whale,mammal
+n02074367,14,dugong,mammal
+n02077923,14,sea lion,mammal
+n02085620,9,Chihuahua,canine
+n02085782,9,Japanese spaniel,canine
+n02085936,9,Maltese dog,canine
+n02086079,9,Pekinese,canine
+n02086240,9,Shih-Tzu,canine
+n02086646,9,Blenheim spaniel,canine
+n02086910,9,papillon,canine
+n02087046,9,toy terrier,canine
+n02087394,9,Rhodesian ridgeback,canine
+n02088094,9,Afghan hound,canine
+n02088238,9,basset,canine
+n02088364,9,beagle,canine
+n02088466,9,bloodhound,canine
+n02088632,9,bluetick,canine
+n02089078,9,black-and-tan coonhound,canine
+n02089867,9,Walker hound,canine
+n02089973,9,English foxhound,canine
+n02090379,9,redbone,canine
+n02090622,9,borzoi,canine
+n02090721,9,Irish wolfhound,canine
+n02091032,9,Italian greyhound,canine
+n02091134,9,whippet,canine
+n02091244,9,Ibizan hound,canine
+n02091467,9,Norwegian elkhound,canine
+n02091635,9,otterhound,canine
+n02091831,9,Saluki,canine
+n02092002,9,Scottish deerhound,canine
+n02092339,9,Weimaraner,canine
+n02093256,9,Staffordshire bullterrier,canine
+n02093428,9,American Staffordshire terrier,canine
+n02093647,9,Bedlington terrier,canine
+n02093754,9,Border terrier,canine
+n02093859,9,Kerry blue terrier,canine
+n02093991,9,Irish terrier,canine
+n02094114,9,Norfolk terrier,canine
+n02094258,9,Norwich terrier,canine
+n02094433,9,Yorkshire terrier,canine
+n02095314,9,wire-haired fox terrier,canine
+n02095570,9,Lakeland terrier,canine
+n02095889,9,Sealyham terrier,canine
+n02096051,9,Airedale,canine
+n02096177,9,cairn,canine
+n02096294,9,Australian terrier,canine
+n02096437,9,Dandie Dinmont,canine
+n02096585,9,Boston bull,canine
+n02097047,9,miniature schnauzer,canine
+n02097130,9,giant schnauzer,canine
+n02097209,9,standard schnauzer,canine
+n02097298,9,Scotch terrier,canine
+n02097474,9,Tibetan terrier,canine
+n02097658,9,silky terrier,canine
+n02098105,9,soft-coated wheaten terrier,canine
+n02098286,9,West Highland white terrier,canine
+n02098413,9,Lhasa,canine
+n02099267,9,flat-coated retriever,canine
+n02099429,9,curly-coated retriever,canine
+n02099601,9,golden retriever,canine
+n02099712,9,Labrador retriever,canine
+n02099849,9,Chesapeake Bay retriever,canine
+n02100236,9,German short-haired pointer,canine
+n02100583,9,vizsla,canine
+n02100735,9,English setter,canine
+n02100877,9,Irish setter,canine
+n02101006,9,Gordon setter,canine
+n02101388,9,Brittany spaniel,canine
+n02101556,9,clumber,canine
+n02102040,9,English springer,canine
+n02102177,9,Welsh springer spaniel,canine
+n02102318,9,cocker spaniel,canine
+n02102480,9,Sussex spaniel,canine
+n02102973,9,Irish water spaniel,canine
+n02104029,9,kuvasz,canine
+n02104365,9,schipperke,canine
+n02105056,9,groenendael,canine
+n02105162,9,malinois,canine
+n02105251,9,briard,canine
+n02105412,9,kelpie,canine
+n02105505,9,komondor,canine
+n02105641,9,Old English sheepdog,canine
+n02105855,9,Shetland sheepdog,canine
+n02106030,9,collie,canine
+n02106166,9,Border collie,canine
+n02106382,9,Bouvier des Flandres,canine
+n02106550,9,Rottweiler,canine
+n02106662,9,German shepherd,canine
+n02107142,9,Doberman,canine
+n02107312,9,miniature pinscher,canine
+n02107574,9,Greater Swiss Mountain dog,canine
+n02107683,9,Bernese mountain dog,canine
+n02107908,9,Appenzeller,canine
+n02108000,9,EntleBucher,canine
+n02108089,9,boxer,canine
+n02108422,9,bull mastiff,canine
+n02108551,9,Tibetan mastiff,canine
+n02108915,9,French bulldog,canine
+n02109047,9,Great Dane,canine
+n02109525,9,Saint Bernard,canine
+n02109961,9,Eskimo dog,canine
+n02110063,9,malamute,canine
+n02110185,9,Siberian husky,canine
+n02110341,9,dalmatian,canine
+n02110627,9,affenpinscher,canine
+n02110806,9,basenji,canine
+n02110958,9,pug,canine
+n02111129,9,Leonberg,canine
+n02111277,9,Newfoundland,canine
+n02111500,9,Great Pyrenees,canine
+n02111889,9,Samoyed,canine
+n02112018,9,Pomeranian,canine
+n02112137,9,chow,canine
+n02112350,9,keeshond,canine
+n02112706,9,Brabancon griffon,canine
+n02113023,9,Pembroke,canine
+n02113186,9,Cardigan,canine
+n02113624,9,toy poodle,canine
+n02113712,9,miniature poodle,canine
+n02113799,9,standard poodle,canine
+n02113978,9,Mexican hairless,canine
+n02114367,9,timber wolf,canine
+n02114548,9,white wolf,canine
+n02114712,9,red wolf,canine
+n02114855,9,coyote,canine
+n02115641,9,dingo,canine
+n02115913,9,dhole,canine
+n02116738,9,African hunting dog,canine
+n02117135,9,hyena,canine
+n02119022,9,red fox,canine
+n02119789,9,kit fox,canine
+n02120079,9,Arctic fox,canine
+n02120505,9,grey fox,canine
+n02123045,10,tabby,feline
+n02123159,10,tiger cat,feline
+n02123394,10,Persian cat,feline
+n02123597,10,Siamese cat,feline
+n02124075,10,Egyptian cat,feline
+n02125311,10,cougar,feline
+n02127052,10,lynx,feline
+n02128385,10,leopard,feline
+n02128757,10,snow leopard,feline
+n02128925,10,jaguar,feline
+n02129165,10,lion,feline
+n02129604,10,tiger,feline
+n02130308,10,cheetah,feline
+n02132136,11,brown bear,carnivore
+n02133161,11,American black bear,carnivore
+n02134084,11,ice bear,carnivore
+n02134418,11,sloth bear,carnivore
+n02137549,11,mongoose,carnivore
+n02138441,11,meerkat,carnivore
+n02165105,16,tiger beetle,invertebrate
+n02165456,16,ladybug,invertebrate
+n02167151,16,ground beetle,invertebrate
+n02168699,16,long-horned beetle,invertebrate
+n02169497,16,leaf beetle,invertebrate
+n02172182,16,dung beetle,invertebrate
+n02174001,16,rhinoceros beetle,invertebrate
+n02177972,16,weevil,invertebrate
+n02190166,16,fly,invertebrate
+n02206856,16,bee,invertebrate
+n02219486,16,ant,invertebrate
+n02226429,16,grasshopper,invertebrate
+n02229544,16,cricket,invertebrate
+n02231487,16,walking stick,invertebrate
+n02233338,16,cockroach,invertebrate
+n02236044,16,mantis,invertebrate
+n02256656,16,cicada,invertebrate
+n02259212,16,leafhopper,invertebrate
+n02264363,16,lacewing,invertebrate
+n02268443,16,dragonfly,invertebrate
+n02268853,16,damselfly,invertebrate
+n02276258,16,admiral,invertebrate
+n02277742,16,ringlet,invertebrate
+n02279972,16,monarch,invertebrate
+n02280649,16,cabbage butterfly,invertebrate
+n02281406,16,sulphur butterfly,invertebrate
+n02281787,16,lycaenid,invertebrate
+n02317335,16,starfish,invertebrate
+n02319095,16,sea urchin,invertebrate
+n02321529,16,sea cucumber,invertebrate
+n02325366,14,wood rabbit,mammal
+n02326432,14,hare,mammal
+n02328150,14,Angora,mammal
+n02342885,14,hamster,mammal
+n02346627,14,porcupine,mammal
+n02356798,14,fox squirrel,mammal
+n02361337,14,marmot,mammal
+n02363005,14,beaver,mammal
+n02364673,14,guinea pig,mammal
+n02389026,13,sorrel,ungulate
+n02391049,13,zebra,ungulate
+n02395406,13,hog,ungulate
+n02396427,13,wild boar,ungulate
+n02397096,13,warthog,ungulate
+n02398521,13,hippopotamus,ungulate
+n02403003,13,ox,ungulate
+n02408429,13,water buffalo,ungulate
+n02410509,13,bison,ungulate
+n02412080,13,ram,ungulate
+n02415577,13,bighorn,ungulate
+n02417914,13,ibex,ungulate
+n02422106,13,hartebeest,ungulate
+n02422699,13,impala,ungulate
+n02423022,13,gazelle,ungulate
+n02437312,13,Arabian camel,ungulate
+n02437616,13,llama,ungulate
+n02441942,11,weasel,carnivore
+n02442845,11,mink,carnivore
+n02443114,11,polecat,carnivore
+n02443484,11,black-footed ferret,carnivore
+n02444819,11,otter,carnivore
+n02445715,11,skunk,carnivore
+n02447366,11,badger,carnivore
+n02454379,14,armadillo,mammal
+n02457408,14,three-toed sloth,mammal
+n02480495,12,orangutan,primate
+n02480855,12,gorilla,primate
+n02481823,12,chimpanzee,primate
+n02483362,12,gibbon,primate
+n02483708,12,siamang,primate
+n02484975,12,guenon,primate
+n02486261,12,patas,primate
+n02486410,12,baboon,primate
+n02487347,12,macaque,primate
+n02488291,12,langur,primate
+n02488702,12,colobus,primate
+n02489166,12,proboscis monkey,primate
+n02490219,12,marmoset,primate
+n02492035,12,capuchin,primate
+n02492660,12,howler monkey,primate
+n02493509,12,titi,primate
+n02493793,12,spider monkey,primate
+n02494079,12,squirrel monkey,primate
+n02497673,12,Madagascar cat,primate
+n02500267,12,indri,primate
+n02504013,14,Indian elephant,mammal
+n02504458,14,African elephant,mammal
+n02509815,11,lesser panda,carnivore
+n02510455,11,giant panda,carnivore
+n02514041,5,barracouta,fish
+n02526121,5,eel,fish
+n02536864,5,coho,fish
+n02606052,5,rock beauty,fish
+n02607072,5,anemone fish,fish
+n02640242,5,sturgeon,fish
+n02641379,5,gar,fish
+n02643566,5,lionfish,fish
+n02655020,5,puffer,fish
+n02666196,18,abacus,device
+n02667093,24,abaya,covering
+n02669723,24,academic gown,covering
+n02672831,18,accordion,device
+n02676566,18,acoustic guitar,device
+n02687172,17,aircraft carrier,conveyance
+n02690373,17,airliner,conveyance
+n02692877,17,airship,conveyance
+n02699494,25,altar,structure
+n02701002,19,ambulance,container
+n02704792,19,amphibian,container
+n02708093,18,analog clock,device
+n02727426,25,apiary,structure
+n02730930,24,apron,covering
+n02747177,19,ashcan,container
+n02749479,18,assault rifle,device
+n02769748,19,backpack,container
+n02776631,25,bakery,structure
+n02777292,20,balance beam,equipment
+n02782093,17,balloon,conveyance
+n02783161,21,ballpoint,implement
+n02786058,24,Band Aid,covering
+n02787622,18,banjo,device
+n02788148,25,bannister,structure
+n02790996,20,barbell,equipment
+n02791124,22,barber chair,furnishing
+n02791270,25,barbershop,structure
+n02793495,25,barn,structure
+n02794156,18,barometer,device
+n02795169,19,barrel,container
+n02797295,19,barrow,container
+n02799071,20,baseball,equipment
+n02802426,20,basketball,equipment
+n02804414,22,bassinet,furnishing
+n02804610,18,bassoon,device
+n02807133,24,bathing cap,covering
+n02808304,26,bath towel,artifact
+n02808440,19,bathtub,container
+n02814533,19,beach wagon,container
+n02814860,25,beacon,structure
+n02815834,19,beaker,container
+n02817516,24,bearskin,covering
+n02823428,19,beer bottle,container
+n02823750,19,beer glass,container
+n02825657,24,bell cote,covering
+n02834397,26,bib,artifact
+n02835271,19,bicycle-built-for-two,container
+n02837789,24,bikini,covering
+n02840245,24,binder,covering
+n02841315,18,binoculars,device
+n02843684,24,birdhouse,covering
+n02859443,25,boathouse,structure
+n02860847,17,bobsled,conveyance
+n02865351,24,bolo tie,covering
+n02869837,24,bonnet,covering
+n02870880,22,bookcase,furnishing
+n02871525,25,bookshop,structure
+n02877765,24,bottlecap,covering
+n02879718,18,bow,device
+n02883205,24,bow tie,covering
+n02892201,25,brass,structure
+n02892767,24,brassiere,covering
+n02894605,25,breakwater,structure
+n02895154,24,breastplate,covering
+n02906734,21,broom,implement
+n02909870,19,bucket,container
+n02910353,18,buckle,device
+n02916936,24,bulletproof vest,covering
+n02917067,17,bullet train,conveyance
+n02927161,25,butcher shop,structure
+n02930766,19,cab,container
+n02939185,21,caldron,implement
+n02948072,18,candle,device
+n02950826,18,cannon,device
+n02951358,17,canoe,conveyance
+n02951585,21,can opener,implement
+n02963159,24,cardigan,covering
+n02965783,18,car mirror,device
+n02966193,18,carousel,device
+n02966687,20,carpenter's kit,equipment
+n02971356,19,carton,container
+n02974003,18,car wheel,device
+n02977058,18,cash machine,device
+n02978881,19,cassette,container
+n02979186,20,cassette player,equipment
+n02980441,25,castle,structure
+n02981792,17,catamaran,conveyance
+n02988304,20,CD player,equipment
+n02992211,18,cello,device
+n02992529,20,cellular telephone,equipment
+n02999410,26,chain,artifact
+n03000134,25,chainlink fence,structure
+n03000247,24,chain mail,covering
+n03000684,18,chain saw,device
+n03014705,19,chest,container
+n03016953,22,chiffonier,furnishing
+n03017168,18,chime,device
+n03018349,22,china cabinet,furnishing
+n03026506,24,Christmas stocking,covering
+n03028079,25,church,structure
+n03032252,25,cinema,structure
+n03041632,21,cleaver,implement
+n03042490,25,cliff dwelling,structure
+n03045698,24,cloak,covering
+n03047690,24,clog,covering
+n03062245,19,cocktail shaker,container
+n03063599,19,coffee mug,container
+n03063689,21,coffeepot,implement
+n03065424,25,coil,structure
+n03075370,18,combination lock,device
+n03085013,20,computer keyboard,equipment
+n03089624,25,confectionery,structure
+n03095699,17,container ship,conveyance
+n03100240,19,convertible,container
+n03109150,21,corkscrew,implement
+n03110669,18,cornet,device
+n03124043,24,cowboy boot,covering
+n03124170,24,cowboy hat,covering
+n03125729,22,cradle,furnishing
+n03126707,18,crane,device
+n03127747,24,crash helmet,covering
+n03127925,19,crate,container
+n03131574,22,crib,furnishing
+n03133878,21,Crock Pot,implement
+n03134739,20,croquet ball,equipment
+n03141823,21,crutch,implement
+n03146219,24,cuirass,covering
+n03160309,25,dam,structure
+n03179701,22,desk,furnishing
+n03180011,18,desktop computer,device
+n03187595,20,dial telephone,equipment
+n03188531,24,diaper,covering
+n03196217,18,digital clock,device
+n03197337,18,digital watch,device
+n03201208,22,dining table,furnishing
+n03207743,26,dishrag,artifact
+n03207941,26,dishwasher,artifact
+n03208938,18,disk brake,device
+n03216828,25,dock,structure
+n03218198,17,dogsled,conveyance
+n03220513,24,dome,covering
+n03223299,24,doormat,covering
+n03240683,20,drilling platform,equipment
+n03249569,18,drum,device
+n03250847,21,drumstick,implement
+n03255030,20,dumbbell,equipment
+n03259280,26,Dutch oven,artifact
+n03271574,18,electric fan,device
+n03272010,18,electric guitar,device
+n03272562,19,electric locomotive,container
+n03290653,22,entertainment center,furnishing
+n03291819,19,envelope,container
+n03297495,26,espresso maker,artifact
+n03314780,23,face powder,toiletry
+n03325584,24,feather boa,covering
+n03337140,22,file,furnishing
+n03344393,17,fireboat,conveyance
+n03345487,19,fire engine,container
+n03347037,24,fire screen,covering
+n03355925,21,flagpole,implement
+n03372029,18,flute,device
+n03376595,22,folding chair,furnishing
+n03379051,24,football helmet,covering
+n03384352,19,forklift,container
+n03388043,25,fountain,structure
+n03388183,21,fountain pen,implement
+n03388549,22,four-poster,furnishing
+n03393912,19,freight car,container
+n03394916,18,French horn,device
+n03400231,21,frying pan,implement
+n03404251,24,fur coat,covering
+n03417042,19,garbage truck,container
+n03424325,24,gasmask,covering
+n03425413,18,gas pump,device
+n03443371,19,goblet,container
+n03444034,19,go-kart,container
+n03445777,20,golf ball,equipment
+n03445924,20,golfcart,equipment
+n03447447,17,gondola,conveyance
+n03447721,18,gong,device
+n03450230,24,gown,covering
+n03452741,18,grand piano,device
+n03457902,25,greenhouse,structure
+n03459775,25,grille,structure
+n03461385,25,grocery store,structure
+n03467068,18,guillotine,device
+n03476684,18,hair slide,device
+n03476991,23,hair spray,toiletry
+n03478589,17,half track,conveyance
+n03481172,21,hammer,implement
+n03482405,19,hamper,container
+n03483316,18,hand blower,device
+n03485407,18,hand-held computer,device
+n03485794,26,handkerchief,artifact
+n03492542,18,hard disc,device
+n03494278,18,harmonica,device
+n03495258,18,harp,device
+n03496892,18,harvester,device
+n03498962,21,hatchet,implement
+n03527444,24,holster,covering
+n03529860,25,home theater,structure
+n03530642,25,honeycomb,structure
+n03532672,18,hook,device
+n03534580,24,hoopskirt,covering
+n03535780,20,horizontal bar,equipment
+n03538406,19,horse cart,container
+n03544143,18,hourglass,device
+n03584254,20,iPod,equipment
+n03584829,26,iron,artifact
+n03590841,18,jack-o'-lantern,device
+n03594734,24,jean,covering
+n03594945,19,jeep,container
+n03595614,24,jersey,covering
+n03598930,20,jigsaw puzzle,equipment
+n03599486,19,jinrikisha,container
+n03602883,18,joystick,device
+n03617480,24,kimono,covering
+n03623198,24,knee pad,covering
+n03627232,18,knot,device
+n03630383,24,lab coat,covering
+n03633091,19,ladle,container
+n03637318,24,lampshade,covering
+n03642806,18,laptop,device
+n03649909,21,lawn mower,implement
+n03657121,24,lens cap,covering
+n03658185,21,letter opener,implement
+n03661043,25,library,structure
+n03662601,17,lifeboat,conveyance
+n03666591,18,lighter,device
+n03670208,19,limousine,container
+n03673027,17,liner,conveyance
+n03676483,23,lipstick,toiletry
+n03680355,24,Loafer,covering
+n03690938,23,lotion,toiletry
+n03691459,18,loudspeaker,device
+n03692522,18,loupe,device
+n03697007,25,lumbermill,structure
+n03706229,18,magnetic compass,device
+n03709823,19,mailbag,container
+n03710193,19,mailbox,container
+n03710637,24,maillot,covering
+n03710721,24,maillot,covering
+n03717622,24,manhole cover,covering
+n03720891,18,maraca,device
+n03721384,18,marimba,device
+n03724870,24,mask,covering
+n03729826,21,matchstick,implement
+n03733131,18,maypole,device
+n03733281,26,maze,artifact
+n03733805,19,measuring cup,container
+n03742115,22,medicine chest,furnishing
+n03743016,25,megalith,structure
+n03759954,18,microphone,device
+n03761084,26,microwave,artifact
+n03763968,24,military uniform,covering
+n03764736,19,milk can,container
+n03769881,17,minibus,conveyance
+n03770439,24,miniskirt,covering
+n03770679,19,minivan,container
+n03773504,17,missile,conveyance
+n03775071,24,mitten,covering
+n03775546,19,mixing bowl,container
+n03776460,25,mobile home,structure
+n03777568,19,Model T,container
+n03777754,20,modem,equipment
+n03781244,25,monastery,structure
+n03782006,20,monitor,equipment
+n03785016,19,moped,container
+n03786901,19,mortar,container
+n03787032,24,mortarboard,covering
+n03788195,25,mosque,structure
+n03788365,24,mosquito net,covering
+n03791053,19,motor scooter,container
+n03792782,19,mountain bike,container
+n03792972,25,mountain tent,structure
+n03793489,18,mouse,device
+n03794056,18,mousetrap,device
+n03796401,19,moving van,container
+n03803284,18,muzzle,device
+n03804744,18,nail,device
+n03814639,18,neck brace,device
+n03814906,26,necklace,artifact
+n03825788,24,nipple,covering
+n03832673,18,notebook,device
+n03837869,25,obelisk,structure
+n03838899,18,oboe,device
+n03840681,18,ocarina,device
+n03841143,18,odometer,device
+n03843555,18,oil filter,device
+n03854065,18,organ,device
+n03857828,20,oscilloscope,equipment
+n03866082,24,overskirt,covering
+n03868242,19,oxcart,container
+n03868863,18,oxygen mask,device
+n03871628,19,packet,container
+n03873416,21,paddle,implement
+n03874293,18,paddlewheel,device
+n03874599,18,padlock,device
+n03876231,18,paintbrush,device
+n03877472,24,pajama,covering
+n03877845,25,palace,structure
+n03884397,18,panpipe,device
+n03887697,26,paper towel,artifact
+n03888257,20,parachute,equipment
+n03888605,20,parallel bars,equipment
+n03891251,22,park bench,furnishing
+n03891332,18,parking meter,device
+n03895866,19,passenger car,container
+n03899768,25,patio,structure
+n03902125,20,pay-phone,equipment
+n03903868,25,pedestal,structure
+n03908618,19,pencil box,container
+n03908714,21,pencil sharpener,implement
+n03916031,23,perfume,toiletry
+n03920288,19,Petri dish,container
+n03924679,20,photocopier,equipment
+n03929660,18,pick,device
+n03929855,24,pickelhaube,covering
+n03930313,25,picket fence,structure
+n03930630,19,pickup,container
+n03933933,18,pier,device
+n03935335,19,piggy bank,container
+n03937543,19,pill bottle,container
+n03938244,26,pillow,artifact
+n03942813,20,ping-pong ball,equipment
+n03944341,18,pinwheel,device
+n03947888,17,pirate,conveyance
+n03950228,19,pitcher,container
+n03954731,21,plane,implement
+n03956157,25,planetarium,structure
+n03958227,19,plastic bag,container
+n03961711,25,plate rack,structure
+n03967562,21,plow,implement
+n03970156,21,plunger,implement
+n03976467,20,Polaroid camera,equipment
+n03976657,21,pole,implement
+n03977966,19,police van,container
+n03980874,24,poncho,covering
+n03982430,20,pool table,equipment
+n03983396,19,pop bottle,container
+n03991062,19,pot,container
+n03992509,18,potter's wheel,device
+n03995372,21,power drill,implement
+n03998194,22,prayer rug,furnishing
+n04004767,20,printer,equipment
+n04005630,25,prison,structure
+n04008634,18,projectile,device
+n04009552,18,projector,device
+n04019541,18,puck,device
+n04023962,20,punching bag,equipment
+n04026417,19,purse,container
+n04033901,21,quill,implement
+n04033995,24,quilt,covering
+n04037443,19,racer,container
+n04039381,21,racket,implement
+n04040759,18,radiator,device
+n04041544,26,radio,artifact
+n04044716,18,radio telescope,device
+n04049303,26,rain barrel,artifact
+n04065272,19,recreational vehicle,container
+n04067472,18,reel,device
+n04069434,20,reflex camera,equipment
+n04070727,26,refrigerator,artifact
+n04074963,18,remote control,device
+n04081281,25,restaurant,structure
+n04086273,18,revolver,device
+n04090263,18,rifle,device
+n04099969,22,rocking chair,furnishing
+n04111531,26,rotisserie,artifact
+n04116512,21,rubber eraser,implement
+n04118538,20,rugby ball,equipment
+n04118776,18,rule,device
+n04120489,24,running shoe,covering
+n04125021,19,safe,container
+n04127249,18,safety pin,device
+n04131690,19,saltshaker,container
+n04133789,24,sandal,covering
+n04136333,24,sarong,covering
+n04141076,18,sax,device
+n04141327,24,scabbard,covering
+n04141975,18,scale,device
+n04146614,17,school bus,conveyance
+n04147183,17,schooner,conveyance
+n04149813,26,scoreboard,artifact
+n04152593,18,screen,device
+n04153751,18,screw,device
+n04154565,21,screwdriver,implement
+n04162706,24,seat belt,covering
+n04179913,26,sewing machine,artifact
+n04192698,24,shield,covering
+n04200800,25,shoe shop,structure
+n04201297,24,shoji,covering
+n04204238,19,shopping basket,container
+n04204347,19,shopping cart,container
+n04208210,21,shovel,implement
+n04209133,24,shower cap,covering
+n04209239,22,shower curtain,furnishing
+n04228054,18,ski,device
+n04229816,24,ski mask,covering
+n04235860,19,sleeping bag,container
+n04238763,18,slide rule,device
+n04239074,25,sliding door,structure
+n04243546,18,slot,device
+n04251144,18,snorkel,device
+n04252077,19,snowmobile,container
+n04252225,19,snowplow,container
+n04254120,19,soap dispenser,container
+n04254680,20,soccer ball,equipment
+n04254777,24,sock,covering
+n04258138,18,solar dish,device
+n04259630,24,sombrero,covering
+n04263257,19,soup bowl,container
+n04264628,21,space bar,implement
+n04265275,18,space heater,device
+n04266014,17,space shuttle,conveyance
+n04270147,21,spatula,implement
+n04273569,17,speedboat,conveyance
+n04275548,18,spider web,device
+n04277352,21,spindle,implement
+n04285008,19,sports car,container
+n04286575,18,spotlight,device
+n04296562,26,stage,artifact
+n04310018,19,steam locomotive,container
+n04311004,25,steel arch bridge,structure
+n04311174,18,steel drum,device
+n04317175,18,stethoscope,device
+n04325704,24,stole,covering
+n04326547,25,stone wall,structure
+n04328186,18,stopwatch,device
+n04330267,18,stove,device
+n04332243,18,strainer,device
+n04335435,19,streetcar,container
+n04336792,17,stretcher,conveyance
+n04344873,22,studio couch,furnishing
+n04346328,25,stupa,structure
+n04347754,17,submarine,conveyance
+n04350905,24,suit,covering
+n04355338,18,sundial,device
+n04355933,18,sunglass,device
+n04356056,18,sunglasses,device
+n04357314,23,sunscreen,toiletry
+n04366367,25,suspension bridge,structure
+n04367480,21,swab,implement
+n04370456,24,sweatshirt,covering
+n04371430,24,swimming trunks,covering
+n04371774,18,swing,device
+n04372370,18,switch,device
+n04376876,18,syringe,device
+n04380533,22,table lamp,furnishing
+n04389033,19,tank,container
+n04392985,20,tape player,equipment
+n04398044,21,teapot,implement
+n04399382,26,teddy,artifact
+n04404412,26,television,artifact
+n04409515,20,tennis ball,equipment
+n04417672,24,thatch,covering
+n04418357,22,theater curtain,furnishing
+n04423845,19,thimble,container
+n04428191,18,thresher,device
+n04429376,22,throne,furnishing
+n04435653,24,tile roof,covering
+n04442312,26,toaster,artifact
+n04443257,25,tobacco shop,structure
+n04447861,22,toilet seat,furnishing
+n04456115,18,torch,device
+n04458633,25,totem pole,structure
+n04461696,19,tow truck,container
+n04462240,25,toyshop,structure
+n04465501,19,tractor,container
+n04467665,19,trailer truck,container
+n04476259,19,tray,container
+n04479046,24,trench coat,covering
+n04482393,19,tricycle,container
+n04483307,17,trimaran,conveyance
+n04485082,18,tripod,device
+n04486054,25,triumphal arch,structure
+n04487081,17,trolleybus,conveyance
+n04487394,18,trombone,device
+n04493381,19,tub,container
+n04501370,25,turnstile,structure
+n04505470,18,typewriter keyboard,device
+n04507155,24,umbrella,covering
+n04509417,19,unicycle,container
+n04515003,18,upright,device
+n04517823,26,vacuum,artifact
+n04522168,19,vase,container
+n04523525,24,vault,covering
+n04525038,26,velvet,artifact
+n04525305,18,vending machine,device
+n04532106,24,vestment,covering
+n04532670,25,viaduct,structure
+n04536866,18,violin,device
+n04540053,20,volleyball,equipment
+n04542943,26,waffle iron,artifact
+n04548280,18,wall clock,device
+n04548362,19,wallet,container
+n04550184,22,wardrobe,furnishing
+n04552348,17,warplane,conveyance
+n04553703,19,washbasin,container
+n04554684,26,washer,artifact
+n04557648,19,water bottle,container
+n04560804,19,water jug,container
+n04562935,19,water tower,container
+n04579145,19,whiskey jug,container
+n04579432,18,whistle,device
+n04584207,24,wig,covering
+n04589890,24,window screen,covering
+n04590129,24,window shade,covering
+n04591157,24,Windsor tie,covering
+n04591713,19,wine bottle,container
+n04592741,18,wing,device
+n04596742,21,wok,implement
+n04597913,19,wooden spoon,container
+n04599235,26,wool,artifact
+n04604644,25,worm fence,structure
+n04606251,17,wreck,conveyance
+n04612504,17,yawl,conveyance
+n04613696,25,yurt,structure
+n06359193,18,web site,device
+n06596364,26,comic book,artifact
+n06785654,20,crossword puzzle,equipment
+n06794110,30,street sign,abstraction
+n06874185,30,traffic light,abstraction
+n07248320,24,book jacket,covering
+n07565083,1,menu,food
+n07579787,1,plate,food
+n07583066,1,guacamole,food
+n07584110,1,consomme,food
+n07590611,1,hot pot,food
+n07613480,1,trifle,food
+n07614500,1,ice cream,food
+n07615774,1,ice lolly,food
+n07684084,1,French loaf,food
+n07693725,1,bagel,food
+n07695742,1,pretzel,food
+n07697313,1,cheeseburger,food
+n07697537,1,hotdog,food
+n07711569,1,mashed potato,food
+n07714571,1,head cabbage,food
+n07714990,1,broccoli,food
+n07715103,1,cauliflower,food
+n07716358,1,zucchini,food
+n07716906,1,spaghetti squash,food
+n07717410,1,acorn squash,food
+n07717556,1,butternut squash,food
+n07718472,1,cucumber,food
+n07718747,1,artichoke,food
+n07720875,1,bell pepper,food
+n07730033,1,cardoon,food
+n07734744,1,mushroom,food
+n07742313,2,Granny Smith,fruit
+n07745940,2,strawberry,fruit
+n07747607,2,orange,fruit
+n07749582,2,lemon,fruit
+n07753113,2,fig,fruit
+n07753275,2,pineapple,fruit
+n07753592,2,banana,fruit
+n07754684,2,jackfruit,fruit
+n07760859,2,custard apple,fruit
+n07768694,2,pomegranate,fruit
+n07802026,1,hay,food
+n07831146,1,carbonara,food
+n07836838,1,chocolate sauce,food
+n07860988,1,dough,food
+n07871810,1,meat loaf,food
+n07873807,1,pizza,food
+n07875152,1,potpie,food
+n07880968,1,burrito,food
+n07892512,1,red wine,food
+n07920052,1,espresso,food
+n07930864,1,cup,food
+n07932039,1,eggnog,food
+n09193705,27,alp,geological_formation
+n09229709,30,bubble,abstraction
+n09246464,27,cliff,geological_formation
+n09256479,27,coral reef,geological_formation
+n09288635,27,geyser,geological_formation
+n09332890,27,lakeside,geological_formation
+n09399592,27,promontory,geological_formation
+n09421951,28,sandbar,bar
+n09428293,27,seashore,geological_formation
+n09468604,27,valley,geological_formation
+n09472597,27,volcano,geological_formation
+n09835506,15,ballplayer,person
+n10148035,15,groom,person
+n10565667,15,scuba diver,person
+n11879895,2,rapeseed,fruit
+n11939491,4,daisy,plant
+n12057211,4,yellow lady's slipper,plant
+n12144580,2,corn,fruit
+n12267677,2,acorn,fruit
+n12620546,2,hip,fruit
+n12768682,2,buckeye,fruit
+n12985857,3,coral fungus,fungus
+n12998815,3,agaric,fungus
+n13037406,3,gyromitra,fungus
+n13040303,3,stinkhorn,fungus
+n13044778,3,earthstar,fungus
+n13052670,3,hen-of-the-woods,fungus
+n13054560,3,bolete,fungus
+n13133613,2,ear,fruit
+n15075141,29,toilet tissue,substance
