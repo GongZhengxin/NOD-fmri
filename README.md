@@ -1,6 +1,6 @@
-# A large-scale fMRI dataset for object recognition in naturalistic scenes
+# A large-scale fMRI dataset for human visual processing of naturalistic scenes
 Natural Object Dataset (NOD), a large-scale fMRI dataset containing responses to 57,620 naturalistic images from 30 participants. NOD strives for a balance between sampling variation between individuals and sampling variation between stimuli. The dataset contains raw data, derived data from fMRIPrep and Ciftify, and suface-based analyzed data.   
-To get more details, please refer to the paper at {website} and the dataset at https://openneuro.org/datasets/ds004496/
+To get more details, please refer to the paper at {website} and the dataset at https://openneuro.org/datasets/ds004496/versions/1.2.2
 
 ## Preprocess procedure
 The MRI data were preprocessed by fMRIprep 20.2.142. Detailed information on fMRIprep pipelines can be found in the online documentation of the fMRIPrep(https://fmriprep.org). Then, all the preprocessed individual fMRI data were registered onto the 32k fsLR space using the Ciftify toolbox.
