@@ -65,5 +65,8 @@ We combined the data from ImageNet, COCO, and functional localizer experiments t
 **code: ./validation/DNN-based_prf-encoding-model.py**
 
 
+## Mannually prepared environment
+We provide the *requirements.txt* to install python packages used in these codes. However, some packages like *dnnbrain*, *fmriprep*, and *ciftify* require external dependecies. We have refered neccesary informations about how to install these dependencies in the *requirements.txt*.
+
 
 
